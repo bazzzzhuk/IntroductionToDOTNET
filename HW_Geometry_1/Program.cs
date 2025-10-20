@@ -95,17 +95,21 @@ namespace HW_Geometry_1
 			}
 			Console.WriteLine();
 			/////Chess
+			Console.Write("┌"); for (int i = 0; i < side * side*2; i++)Console.Write ("─"); Console.Write("┐"); Console.WriteLine();//первая линия оконтовки
 			for (int i = 0; i < side; i++)// по большим строчным квадратам
 			{
 				for (int ii = 0; ii < side; ii++)//по строкам квадрата
 				{
+				Console.Write("│");//вертикальная линия в начале
 					for (int iii = 0; iii < side; iii++)//строка
 					{
 						for (int iiii = 0; iiii < side; iiii++) Console.Write(iii % 2 == i % 2 ? "* " : "  ");// чёрное или белое
 					}
+				Console.Write("│");//вертикальная линия в начале
 					Console.WriteLine();
 				}
 			}
+			Console.Write("└"); for (int i = 0; i < side *side* 2; i++)Console.Write("─"); Console.Write("┘"); Console.WriteLine();//последняя линия оконтовки
 			Console.Write("┌"); for (int i = 0; i < side * 2; i++)Console.Write ("─"); Console.Write("┐"); Console.WriteLine();//первая линия оконтовки
 			for (int ii = 0; ii < side; ii++)//по рядам
 			{
