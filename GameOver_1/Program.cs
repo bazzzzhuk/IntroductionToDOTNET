@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace GameOver_1
 {
@@ -32,6 +33,7 @@ namespace GameOver_1
 			Console.CursorLeft = pos_x;
 			Console.CursorTop = pos_y + 3;
 			Console.Write("▌▓▐");
+			Thread.Sleep(1);
 			Console.CursorLeft = pos_x;
 			Console.CursorTop = pos_y + 3;
 			Console.Write("▌░▐");
@@ -70,6 +72,7 @@ namespace GameOver_1
 				while (!isQuit)
 				{
 					var task = Task.Factory.StartNew(() => { return Console.ReadKey(true); });
+					//System.SendKeys.Send("L");
 					if (task.Wait(-1)) // wait forever
 					{
 						//Console.Write(task.Result.Key.ToString());
