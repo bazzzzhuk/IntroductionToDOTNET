@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntroductionToDOTNET", "Int
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HW_Geometry_1", "HW_Geometry_1\HW_Geometry_1.csproj", "{1A8A6BB2-F737-4A8E-B3CF-C25A6ECDF225}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTypes", "DataTypes\DataTypes.csproj", "{F06DF082-528B-43D0-8B75-4D43FC15F1CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOver_1", "GameOver_1\GameOver_1.csproj", "{BA962013-0C3E-4111-A396-5D62507B9C90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{1A8A6BB2-F737-4A8E-B3CF-C25A6ECDF225}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A8A6BB2-F737-4A8E-B3CF-C25A6ECDF225}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A8A6BB2-F737-4A8E-B3CF-C25A6ECDF225}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F06DF082-528B-43D0-8B75-4D43FC15F1CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F06DF082-528B-43D0-8B75-4D43FC15F1CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F06DF082-528B-43D0-8B75-4D43FC15F1CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F06DF082-528B-43D0-8B75-4D43FC15F1CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA962013-0C3E-4111-A396-5D62507B9C90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA962013-0C3E-4111-A396-5D62507B9C90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA962013-0C3E-4111-A396-5D62507B9C90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA962013-0C3E-4111-A396-5D62507B9C90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
