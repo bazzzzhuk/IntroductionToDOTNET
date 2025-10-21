@@ -1,16 +1,30 @@
-﻿//#define DATA_TYPES
+﻿#define DATA_TYPES
 //#define DATA_TYPES
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DataTypes
 {
+
+
 	internal class Program
 	{
 		const string delimiter = "\n=================================\n";
+		void print_type(Type str)
+		{
+			//template<typename T>;
+			Console.WriteLine(delimiter);
+			Console.WriteLine
+				(
+$@"Тип данных {str} занимает {sizeof(int)} Байт памяти 
+и принимает значение в диапазоне от {(int)char.MinValue} до {(int)int.MaxValue}. Класс-обёртка - {typeof(char)}");
+			Console.WriteLine(delimiter);
+		}
 		static void Main(string[] args)
 		{
 #if DATA_TYPES
@@ -57,6 +71,7 @@ $@"sbyte занимает {sizeof(decimal)} Байт памяти.");
 			Console.WriteLine(delimiter);
 #endif
 
+			print_type(char);
 
 
 		}
