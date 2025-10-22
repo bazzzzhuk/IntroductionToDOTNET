@@ -77,6 +77,7 @@ namespace GameOver_1
 					{
 						//Console.Write(task.Result.Key.ToString());
 						Console.Clear();
+						Console.WriteLine("Илон Маск отдыхает...");
 						Console.WriteLine("Enter Q to exit!");
 						rocket.Rocket_move(task.Result.Key);
 						if (task.Result.Key == ConsoleKey.Q)
