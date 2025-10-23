@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTypes", "DataTypes\Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOver_1", "GameOver_1\GameOver_1.csproj", "{BA962013-0C3E-4111-A396-5D62507B9C90}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arrays", "Arrays\Arrays.csproj", "{DB570BA4-4948-44BF-8269-214E59361B5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HW_Calculator", "HW_Calculator\HW_Calculator.csproj", "{925898E9-BB4C-42D9-A57E-730EEB394B19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{BA962013-0C3E-4111-A396-5D62507B9C90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA962013-0C3E-4111-A396-5D62507B9C90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA962013-0C3E-4111-A396-5D62507B9C90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB570BA4-4948-44BF-8269-214E59361B5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB570BA4-4948-44BF-8269-214E59361B5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB570BA4-4948-44BF-8269-214E59361B5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB570BA4-4948-44BF-8269-214E59361B5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{925898E9-BB4C-42D9-A57E-730EEB394B19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{925898E9-BB4C-42D9-A57E-730EEB394B19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{925898E9-BB4C-42D9-A57E-730EEB394B19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{925898E9-BB4C-42D9-A57E-730EEB394B19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
