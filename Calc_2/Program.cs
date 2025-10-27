@@ -32,7 +32,7 @@ namespace Calc_2
 			str = Console.ReadLine();
 			do
 			{
-				do//проверка скобок и их упрощение - DONE
+				do//проверка скобок и их упрощение
 				{
 					bracket1 = str.IndexOf('(');
 					bracket2 = str.IndexOf(')');
@@ -56,7 +56,7 @@ namespace Calc_2
 					Console.ReadKey();
 
 				} while (true);
-				do
+				do//решение упрощенного выражения
 				{
 					indx_pr = str.IndexOfAny(chars);
 					if (indx_pr == -1) break;
