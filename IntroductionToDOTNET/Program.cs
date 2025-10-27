@@ -1,4 +1,5 @@
 ﻿//#define CONSOLE
+#define CONSOLE2
 using System; //#include
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace IntroductionToDOTNET
             Console.WriteLine("AnotherPosition");
             Console.ResetColor(); 
 #endif
+#if CONSOLE
 			Console.Write("Введите ваше имя: ");
 			string firstName = Console.ReadLine();
 
@@ -38,7 +40,11 @@ namespace IntroductionToDOTNET
 			Console.WriteLine("Привет, " + lastName + " " + firstName + "!" + " Твой возраст: " + age);//конкатенация строк
 			Console.WriteLine(String.Format("{0} {1} {2}", lastName, firstName, age)); //форматирование строк
 			Console.WriteLine($"{lastName} {firstName} {age}");
-
+#endif
+			char[] ch = { '2', '5' };
+			string str = "123456789";
+			Console.WriteLine(str);
+			Console.WriteLine($"index= {str.IndexOfAny(ch)}  ---  L_index = {str.LastIndexOfAny(ch)}");
 		}
 	}
 }
