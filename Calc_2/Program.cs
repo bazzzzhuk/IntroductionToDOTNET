@@ -63,9 +63,7 @@ namespace Calc_2
 					indx_pr1 = str.LastIndexOfAny(chars, indx_pr - 1);
 					indx_pr2 = str.IndexOfAny(chars, indx_pr);
 					str_in = str.Substring(indx_pr1 + 1, indx_pr2 - indx_pr1 + 1);
-					Console.WriteLine($"str_in {str_in}");
 					str = str.Remove(indx_pr1 + 1, indx_pr - indx_pr1 + 1);
-					Console.WriteLine($"remove {str}");
 					str = str.Insert(indx_pr1 + 1, Calc(str_in));
 					Console.WriteLine(str);
 					Console.ReadKey();
