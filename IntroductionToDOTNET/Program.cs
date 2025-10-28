@@ -41,10 +41,7 @@ namespace IntroductionToDOTNET
 			Console.WriteLine(String.Format("{0} {1} {2}", lastName, firstName, age)); //форматирование строк
 			Console.WriteLine($"{lastName} {firstName} {age}");
 #endif
-			char[] ch = { '2', '5' };
-			string str = "123456789";
-			Console.WriteLine(str);
-			Console.WriteLine($"index= {str.IndexOfAny(ch)}  ---  L_index = {str.LastIndexOfAny(ch)}");
+			
 		}
 	}
 }
