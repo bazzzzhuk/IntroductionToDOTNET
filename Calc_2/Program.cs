@@ -35,8 +35,9 @@ namespace Calc_2
 			//Console.Write("Введите арифметическое выражение:");
 			//str = Console.ReadLine();
 			//str="12345 + (5 * 2) / 2 - (12 / 3) + 678";
-			str = "1+(12*5)*2/4-(((12/0+1)*2+6)*1)+(123*(2/246))";
+			str = "1+(12*5)*2/4-(((12/0+1)*2+6)*1)+(12.3*(2/246))";
 			str = str.Replace(" ", string.Empty);
+			str = str.Replace(".", ",");
 			Console.BackgroundColor = ConsoleColor.DarkYellow;
 			Console.ForegroundColor = ConsoleColor.Black;
 			Console.WriteLine("↓ ↓ ↓ ВЫРАЖЕНИЕ ↓ ↓ ↓");
