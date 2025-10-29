@@ -1,4 +1,5 @@
 ﻿//#define STEP
+//#define BRACKET_CHECK_MAD
 
 using System;
 using System.Collections.Generic;
@@ -7,8 +8,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-
-//12345+(5*2)/2-(12/3)+678
 
 namespace Calc_2
 {
@@ -36,7 +35,7 @@ namespace Calc_2
 			//Console.Write("Введите арифметическое выражение:");
 			//str = Console.ReadLine();
 			//str="12345 + (5 * 2) / 2 - (12 / 3) + 678";
-			str = "1+(12*5)*2/4-(((12/0+1)*2+6)*1)+(123*(2/246))";
+			str = "1+(12*5)*2/4-(((12/0+1)*2+6)*1+)(123*(2/246))";
 			str = str.Replace(" ", string.Empty);
 			Console.BackgroundColor = ConsoleColor.DarkYellow;
 			Console.ForegroundColor = ConsoleColor.Black;
@@ -52,14 +51,15 @@ namespace Calc_2
 		{
 			for (int i = 0; i < str.Length - 1; i++)
 			{
-				if (!chars.Contains(str[i]))return Print_cerr("недопустимый символ",i);
-				if (operators.Contains(str[str.Length - 1]))return Print_cerr("оператор в конце выражения", str.Length - 1);
-				if (operators.Contains(str[0]))return Print_cerr("оператор в начале выражения",0);
+				if (!chars.Contains(str[i])) return Print_cerr("недопустимый символ", i);
+				if (operators.Contains(str[str.Length - 1])) return Print_cerr("оператор в конце выражения", str.Length - 1);
+				if (operators.Contains(str[0])) return Print_cerr("оператор в начале выражения", 0);
 				if (operators.Contains(str[i]) && operators.Contains(str[i + 1])) return Print_cerr("два оператора подряд", i);
+				if (str[i] == ')' && str[i+1]=='(')return Print_cerr("неправильная последовательность скобок",i);
 			}
 			return true;
 		}
-		static bool Print_cerr(string str_cerr,int i)//после проверки, в случае ошибки, печатает текст ошибки и указатель на ошибку
+		static bool Print_cerr(string str_cerr, int i)//после проверки, в случае ошибки, печатает текст ошибки и указатель на ошибку
 		{
 			Console.CursorLeft = i; Console.WriteLine("↑");
 			Console.BackgroundColor = ConsoleColor.DarkRed;
@@ -90,7 +90,7 @@ namespace Calc_2
 				case '-': str_in = Convert.ToString(Convert.ToDouble(str1) - Convert.ToDouble(str2)); break;
 				case '+': str_in = Convert.ToString(Convert.ToDouble(str1) + Convert.ToDouble(str2)); break;
 				case '*': str_in = Convert.ToString(Convert.ToDouble(str1) * Convert.ToDouble(str2)); break;
-				case '/': str_in = (Convert.ToDouble(str2) == 0? "0":Convert.ToString(Convert.ToDouble(str1) / Convert.ToDouble(str2))); break;//деление на ноль вернёт ноль
+				case '/': str_in = (Convert.ToDouble(str2) == 0 ? "0" : Convert.ToString(Convert.ToDouble(str1) / Convert.ToDouble(str2))); break;//деление на ноль вернёт ноль
 			}
 			Console.WriteLine(str_in);
 			return str_in;
@@ -102,8 +102,8 @@ namespace Calc_2
 				int bracket1 = 0;
 				int bracket2 = 0;
 				bracket2 = str.IndexOf(')');
-				if (bracket1 == bracket2 || bracket2 == -1) break;
-				if (bracket2 == -1) bracket2 = 0;
+				if (bracket2 == -1) break;
+				//if (bracket2 == -1) bracket2 = 0;
 				bracket1 = str.LastIndexOf('(', bracket2);
 				Console.ForegroundColor = ConsoleColor.DarkGray;
 				Console.WriteLine("Приоритет скобок:");
@@ -123,16 +123,23 @@ namespace Calc_2
 			{
 				bracket1 = str.IndexOf('(', bracket1);
 				bracket2 = str.IndexOf(')', bracket2);
-				if (bracket1 == -1 ^ bracket2 == -1) return false;
+				if (bracket1 == -1 ^ bracket2 == -1) { return Print_cerr("Количество скобок не равное", (bracket2 == -1 ? bracket1 : bracket2)); }
 				else if (bracket1 == -1 && bracket2 == -1)
 				{
 					Console.ForegroundColor = ConsoleColor.DarkGray;
 					Console.WriteLine("Кол-во скобок равноe!");
+					Console.ResetColor();
 					return true;
 				}
 				bracket1++;
 				bracket2++;
 			} while (bracket1 != bracket2);
+#if BRACKET_CHECK_MAD
+			do//проверка на безобразие скобок: ")(", "a+b)+(c-d"
+			{
+
+			} while (bracket1 != bracket2);
+#endif
 			return true;
 		}
 		static string Priority(string str, char[] op)
