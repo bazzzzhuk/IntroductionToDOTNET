@@ -15,24 +15,28 @@ namespace Calc_2
 	internal class Program
 	{
 		static int oper;
-		static char[] chars = { '-', '+', '*', '/' };
+		static char[] chars = { '-', '+', '*', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '(', ')', '.', ',' };
+		static char[] operators = { '-', '+', '*', '/' };
 		static char[] priority = { '*', '/' };
 		static string str, str1, str2, str_in;
 		static void Main(string[] args)
 		{
-			double rezult = Convert.ToDouble(Calc_2(Enter_expression()));//конвертирование в double решенного введенного выражения
-			Console.BackgroundColor = ConsoleColor.White;
-			Console.ForegroundColor = ConsoleColor.Black;
-			Console.WriteLine($"{rezult}  <--- Результат выражения");
-			Console.ResetColor();
-			charConsole.ReadKey();
+			do
+			{
+				double rezult = Convert.ToDouble(Calc_2(Enter_expression()));//конвертирование в double решения введенного выражения
+				Console.BackgroundColor = ConsoleColor.White;
+				Console.ForegroundColor = ConsoleColor.Black;
+				Console.WriteLine($"{rezult}  <--- Результат выражения");
+				Console.ResetColor();
+				Console.WriteLine("\nДля выхода нажмите Q, для повтора - любую клавишу!");
+			} while (Console.ReadKey(true).Key != ConsoleKey.Q);
 		}
 		static string Enter_expression()//ввод выражения
 		{
 			//Console.Write("Введите арифметическое выражение:");
 			//str = Console.ReadLine();
 			//str="12345 + (5 * 2) / 2 - (12 / 3) + 678";
-			str = "1+(12*5)*2/4-((12/3+1)*2+6)+(123*(2/246))";
+			str = "1+(12*5)*2/4-(((12/0+1)*2+6)*1)+(123*(2/246))";
 			str = str.Replace(" ", string.Empty);
 			Console.BackgroundColor = ConsoleColor.DarkYellow;
 			Console.ForegroundColor = ConsoleColor.Black;
@@ -42,15 +46,27 @@ namespace Calc_2
 			Console.WriteLine(str);
 			Console.ResetColor();
 			if (security_str(str) && check_bracket(str)) return str;
-			else Console.WriteLine("Error input expression"); return "0";
+			else return "0";
 		}
 		static bool security_str(string str)//проверка на отсутствие двух знаков подряд (минусовое значение может позже реализую)
 		{
 			for (int i = 0; i < str.Length - 1; i++)
 			{
-				if (chars.Contains(str[i]) && chars.Contains(str[i + 1])) return false;
+				if (!chars.Contains(str[i]))return Print_cerr("недопустимый символ",i);
+				if (operators.Contains(str[str.Length - 1]))return Print_cerr("оператор в конце выражения", str.Length - 1);
+				if (operators.Contains(str[0]))return Print_cerr("оператор в начале выражения",0);
+				if (operators.Contains(str[i]) && operators.Contains(str[i + 1])) return Print_cerr("два оператора подряд", i);
 			}
 			return true;
+		}
+		static bool Print_cerr(string str_cerr,int i)//после проверки, в случае ошибки, печатает текст ошибки и указатель на ошибку
+		{
+			Console.CursorLeft = i; Console.WriteLine("↑");
+			Console.BackgroundColor = ConsoleColor.DarkRed;
+			Console.ForegroundColor = ConsoleColor.White;
+			Console.WriteLine($"Проверка выражения не пройдена: {str_cerr}!");
+			Console.ResetColor();
+			return false;
 		}
 		static string Calc_2(string str)//по сути обёртка основных циклов вычислений
 		{
@@ -62,7 +78,7 @@ namespace Calc_2
 		{
 			do//калькуляция простых выражений
 			{
-				oper = str_in.IndexOfAny(chars);
+				oper = str_in.IndexOfAny(operators);
 				if (oper == -1) break;
 				str1 = str_in.Substring(0, oper);
 				str2 = str_in.Substring(oper + 1);
@@ -74,7 +90,7 @@ namespace Calc_2
 				case '-': str_in = Convert.ToString(Convert.ToDouble(str1) - Convert.ToDouble(str2)); break;
 				case '+': str_in = Convert.ToString(Convert.ToDouble(str1) + Convert.ToDouble(str2)); break;
 				case '*': str_in = Convert.ToString(Convert.ToDouble(str1) * Convert.ToDouble(str2)); break;
-				case '/': str_in = Convert.ToString(Convert.ToDouble(str1) / Convert.ToDouble(str2)); break;
+				case '/': str_in = (Convert.ToDouble(str2) == 0? "0":Convert.ToString(Convert.ToDouble(str1) / Convert.ToDouble(str2))); break;//деление на ноль вернёт ноль
 			}
 			Console.WriteLine(str_in);
 			return str_in;
@@ -85,8 +101,6 @@ namespace Calc_2
 			{
 				int bracket1 = 0;
 				int bracket2 = 0;
-
-				//int bracket3;
 				bracket2 = str.IndexOf(')');
 				if (bracket1 == bracket2 || bracket2 == -1) break;
 				if (bracket2 == -1) bracket2 = 0;
@@ -113,7 +127,7 @@ namespace Calc_2
 				else if (bracket1 == -1 && bracket2 == -1)
 				{
 					Console.ForegroundColor = ConsoleColor.DarkGray;
-					Console.WriteLine("Кол-во скобок равно!");
+					Console.WriteLine("Кол-во скобок равноe!");
 					return true;
 				}
 				bracket1++;
@@ -137,11 +151,11 @@ namespace Calc_2
 				string str4 = "а нет:";
 				Console.WriteLine("Приоритет" + (op == priority ? str3 : str4));
 				Console.ResetColor();
-				indx_pr1 = str.LastIndexOfAny(chars, indx_pr - 1);
-				indx_pr2 = str.IndexOfAny(chars, indx_pr + 1);
+				indx_pr1 = str.LastIndexOfAny(operators, indx_pr - 1);
+				indx_pr2 = str.IndexOfAny(operators, indx_pr + 1);
 				if (indx_pr2 == -1) indx_pr2 = str.Length;
 				str_in = str.Substring(indx_pr1 + 1, (indx_pr2 - indx_pr1) - 1);
-				if (str.IndexOfAny(chars) == str.LastIndexOfAny(chars))
+				if (str.IndexOfAny(operators) == str.LastIndexOfAny(operators))
 				{
 					str = Calc(str_in);
 					break;
@@ -155,7 +169,7 @@ namespace Calc_2
 		static string Priority_in_cicle(string str)//чтобы расчёт внутренних скобок не чекал скобки
 		{
 			str = Priority(str, priority);
-			str = Priority(str, chars);
+			str = Priority(str, operators);
 			return str;
 		}
 
