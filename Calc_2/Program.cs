@@ -20,51 +20,47 @@ namespace Calc_2
 		static string str, str1, str2, str_in;
 		static void Main(string[] args)
 		{
-			double rezult = Convert.ToDouble(Calc_2(Enter_expression()));
+			double rezult = Convert.ToDouble(Calc_2(Enter_expression()));//конвертирование в double решенного введенного выражения
 			Console.BackgroundColor = ConsoleColor.White;
 			Console.ForegroundColor = ConsoleColor.Black;
 			Console.WriteLine($"{rezult}  <--- Результат выражения");
 			Console.ResetColor();
-
-
+			charConsole.ReadKey();
 		}
-		static string Enter_expression()
+		static string Enter_expression()//ввод выражения
 		{
 			//Console.Write("Введите арифметическое выражение:");
 			//str = Console.ReadLine();
 			//str="12345 + (5 * 2) / 2 - (12 / 3) + 678";
-			str = "1+(12*5)*2/4-(12/3*2+6)+(123*2/246)";
-			if (security_str(str)&&check_bracket(str))				
-			{ 
-				return str;
-			}
-			else
-			{
-				Console.WriteLine("Error input expression"); return "0";
-			}
+			str = "1+(12*5)*2/4-((12/3+1)*2+6)+(123*(2/246))";
+			str = str.Replace(" ", string.Empty);
+			Console.BackgroundColor = ConsoleColor.DarkYellow;
+			Console.ForegroundColor = ConsoleColor.Black;
+			Console.WriteLine("↓ ↓ ↓ ВЫРАЖЕНИЕ ↓ ↓ ↓");
+			Console.BackgroundColor = ConsoleColor.White;
+			Console.ForegroundColor = ConsoleColor.Black;
+			Console.WriteLine(str);
+			Console.ResetColor();
+			if (security_str(str) && check_bracket(str)) return str;
+			else Console.WriteLine("Error input expression"); return "0";
 		}
-		static bool security_str(string str)
+		static bool security_str(string str)//проверка на отсутствие двух знаков подряд (минусовое значение может позже реализую)
 		{
-			for (int i = 0;	i<str.Length-1;i++)
+			for (int i = 0; i < str.Length - 1; i++)
 			{
-				if (chars.Contains(str[i]) && chars.Contains(str[i + 1]))return false;
+				if (chars.Contains(str[i]) && chars.Contains(str[i + 1])) return false;
 			}
 			return true;
 		}
-		static string Calc_2(string str)
+		static string Calc_2(string str)//по сути обёртка основных циклов вычислений
 		{
-			str = str.Replace(" ", string.Empty);
-			Console.WriteLine(str);
 			str = Bracket(str);
-			str = Priority(str, priority);
-			str = Priority(str, chars);
-			
-			
+			str = Priority_in_cicle(str);
 			return str;
 		}
 		static string Calc(string str_in)
 		{
-			do
+			do//калькуляция простых выражений
 			{
 				oper = str_in.IndexOfAny(chars);
 				if (oper == -1) break;
@@ -85,54 +81,46 @@ namespace Calc_2
 		}
 		static string Bracket(string str)
 		{
-			do//проверка скобок и их упрощение
+			do//проверка скобок, просчёт выражения внутри и их упрощение
 			{
-				
-				int bracket1;
-				int bracket2;
-				int bracket3;
-				bracket1 = str.IndexOf('(');
-				bracket2 = str.IndexOf(')');
-				bracket3 = str.IndexOf('(',bracket1+1);
-				if (bracket3 < bracket2) Console.WriteLine("dsgdfbdfbdf");
+				int bracket1 = 0;
+				int bracket2 = 0;
 
-				Console.WriteLine($"bracket1 {bracket1}");
-				if (bracket1 == bracket2) break;
-			Console.WriteLine("Приоритет скобок:");
+				//int bracket3;
+				bracket2 = str.IndexOf(')');
+				if (bracket1 == bracket2 || bracket2 == -1) break;
+				if (bracket2 == -1) bracket2 = 0;
+				bracket1 = str.LastIndexOf('(', bracket2);
+				Console.ForegroundColor = ConsoleColor.DarkGray;
+				Console.WriteLine("Приоритет скобок:");
+				Console.ResetColor();
 				str_in = str.Substring(bracket1 + 1, bracket2 - bracket1 - 1);
 				str = str.Remove(bracket1, bracket2 - bracket1 + 1);
-				str = str.Insert(bracket1, Calc_2(str_in));
+				str = str.Insert(bracket1, Priority_in_cicle(str_in));
 				Console.WriteLine(str);
 			} while (true);
 			return str;
 		}
-		static bool check_bracket(string str)
+		static bool check_bracket(string str)//проверка на равное количество скобок
 		{
-			int bracket1=0;
-			int bracket2=0;
+			int bracket1 = 0;
+			int bracket2 = 0;
 			do
 			{
-				//Console.ReadKey();	
 				bracket1 = str.IndexOf('(', bracket1);
 				bracket2 = str.IndexOf(')', bracket2);
-				Console.WriteLine(bracket1);
-				Console.WriteLine(bracket2);
-				if(bracket1==-1^bracket2==-1)return false;
-				else if (bracket1 ==-1 && bracket2==-1)
+				if (bracket1 == -1 ^ bracket2 == -1) return false;
+				else if (bracket1 == -1 && bracket2 == -1)
 				{
-
+					Console.ForegroundColor = ConsoleColor.DarkGray;
 					Console.WriteLine("Кол-во скобок равно!");
 					return true;
 				}
 				bracket1++;
 				bracket2++;
-			//bracket1 = str.IndexOf('(',bracket1);
-			//bracket2 = str.IndexOf(')',bracket2);
 			} while (bracket1 != bracket2);
 			return true;
 		}
-
-
 		static string Priority(string str, char[] op)
 		{
 			do//Решения по приоритету 
@@ -144,9 +132,11 @@ namespace Calc_2
 				indx_pr = str.IndexOfAny(op);
 				indx_prl = str.LastIndexOfAny(op);
 				if (indx_pr == -1) break;
+				Console.ForegroundColor = ConsoleColor.DarkGray;
 				string str3 = " по знаку:";
 				string str4 = "а нет:";
-				Console.WriteLine("Приоритет" + (op==priority?str3:str4));
+				Console.WriteLine("Приоритет" + (op == priority ? str3 : str4));
+				Console.ResetColor();
 				indx_pr1 = str.LastIndexOfAny(chars, indx_pr - 1);
 				indx_pr2 = str.IndexOfAny(chars, indx_pr + 1);
 				if (indx_pr2 == -1) indx_pr2 = str.Length;
@@ -160,6 +150,12 @@ namespace Calc_2
 				str = str.Insert(indx_pr1 + 1, Calc(str_in));
 				Console.WriteLine(str);
 			} while (true);
+			return str;
+		}
+		static string Priority_in_cicle(string str)//чтобы расчёт внутренних скобок не чекал скобки
+		{
+			str = Priority(str, priority);
+			str = Priority(str, chars);
 			return str;
 		}
 
