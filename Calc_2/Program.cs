@@ -35,7 +35,7 @@ namespace Calc_2
 			//Console.Write("Введите арифметическое выражение:");
 			//str = Console.ReadLine();
 			//str="12345 + (5 * 2) / 2 - (12 / 3) + 678";
-			str = "1+(12*5)*2/4-(((12/0+1)*2+6)*1+)(123*(2/246))";
+			str = "1+(12*5)*2/4-(((12/0+1)*2+6)*1)+(123*(2/246))";
 			str = str.Replace(" ", string.Empty);
 			Console.BackgroundColor = ConsoleColor.DarkYellow;
 			Console.ForegroundColor = ConsoleColor.Black;
@@ -135,7 +135,7 @@ namespace Calc_2
 				bracket2++;
 			} while (bracket1 != bracket2);
 #if BRACKET_CHECK_MAD
-			do//проверка на безобразие скобок: ")(", "a+b)+(c-d"
+			do//проверка на безобразие скобок: ")("(решено в security), "a+b)+(c-d"
 			{
 
 			} while (bracket1 != bracket2);
