@@ -33,7 +33,7 @@ namespace Calc_2
 			//Console.Write("Введите арифметическое выражение:");
 			//str = Console.ReadLine();
 			//str="12345 + (5 * 2) / 2 - (12 / 3) + 678";
-			str = "1+((12*5)*2/4-(12/3*2+6)+(123*2/246)";
+			str = "1+(12*5)*2/4-(12/3*2+6)+(123*2/246)";
 			if (security_str(str)&&check_bracket(str))				
 			{ 
 				return str;
@@ -113,22 +113,22 @@ namespace Calc_2
 			do
 			{
 				//Console.ReadKey();	
+				bracket1 = str.IndexOf('(', bracket1);
+				bracket2 = str.IndexOf(')', bracket2);
 				Console.WriteLine(bracket1);
 				Console.WriteLine(bracket2);
-				if(bracket1==-1||bracket2==-1)return false;
-				else if(bracket1 == bracket2)
+				if(bracket1==-1^bracket2==-1)return false;
+				else if (bracket1 ==-1 && bracket2==-1)
 				{
-			
-					Console.WriteLine("Dis");
+
+					Console.WriteLine("Кол-во скобок равно!");
 					return true;
 				}
-				bracket1 = str.IndexOf('(', bracket1 + 1);
-				bracket2 = str.IndexOf(')', bracket2 + 1);
 				bracket1++;
 				bracket2++;
 			//bracket1 = str.IndexOf('(',bracket1);
 			//bracket2 = str.IndexOf(')',bracket2);
-			} while (bracket1 != -1||bracket2!=-1);
+			} while (bracket1 != bracket2);
 			return true;
 		}
 
