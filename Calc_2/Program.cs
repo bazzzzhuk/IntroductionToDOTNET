@@ -36,14 +36,13 @@ namespace Calc_2
 			//str = Console.ReadLine();
 			//str="12345 + (5 * 2) / 2 - (12 / 3) + 678";
 			str = "1+3*(12*5)*20/4-(((12/2+1)+(2*6))*10)+(12.3+(2/246))";
-			str = str.Replace(" ", string.Empty);
-			str = str.Replace(".", ",");
+			str=Correct_expression(str);
 			Console.BackgroundColor = ConsoleColor.DarkYellow;
 			Console.ForegroundColor = ConsoleColor.Black;
 			Console.WriteLine("↓ ↓ ↓ ВЫРАЖЕНИЕ ↓ ↓ ↓");
 			Console.BackgroundColor = ConsoleColor.White;
 			Console.ForegroundColor = ConsoleColor.Black;
-			Console.WriteLine(str); 
+			Console.WriteLine(str);
 			Console.ResetColor();
 			bracket_check_mad(str);
 			if (security_str(str) && check_bracket(str)) return str;
@@ -57,9 +56,19 @@ namespace Calc_2
 				if (operators.Contains(str[str.Length - 1])) return Print_cerr("оператор в конце выражения", str.Length - 1);
 				if (operators.Contains(str[0])) return Print_cerr("оператор в начале выражения", 0);
 				if (operators.Contains(str[i]) && operators.Contains(str[i + 1])) return Print_cerr("два оператора подряд", i);
-				if ((str[i] == ')' && str[i + 1] == '(') || (str[i] == '(' && str[i + 1] == ')')) return Print_cerr("неправильная последовательность скобок", i);
+				if (str[i] == '(' && str[i + 1] == ')') return Print_cerr("неправильная последовательность скобок", i);
 			}
 			return true;
+		}
+		static string Correct_expression(string str)
+		{
+			str = str.Replace(" ", string.Empty);//удаляем пробелы
+			str = str.Replace(".", ",");//меняем точки на запятый
+			for (int i = 0; i < str.Length - 1; i++)//")(" меняет на ")*("
+			{
+				if (str[i] == ')' && str[i + 1] == '(') str = str.Insert(i + 1, "*");
+			}
+			return str;	
 		}
 		static bool Print_cerr(string str_cerr, int i)//после проверки, в случае ошибки, печатает текст ошибки и указатель на ошибку
 		{
@@ -75,7 +84,7 @@ namespace Calc_2
 			str = Bracket(str);
 			str = Priority_in_cicle(str);
 			return str;
-		}
+		}		
 		static string Calc(string str_in)
 		{
 			do//калькуляция простых выражений
@@ -133,7 +142,7 @@ namespace Calc_2
 					Console.ResetColor();
 					return true;
 				}
-				if (bracket2 < bracket1) return Print_cerr("неправильное расположение скобок",bracket2);
+				if (bracket2 < bracket1) return Print_cerr("неправильное расположение скобок", bracket2);
 				bracket1++;
 				bracket2++;
 			} while (bracket1 != bracket2);
@@ -150,7 +159,7 @@ namespace Calc_2
 			//{
 
 			//} while (true);
-			return true;	
+			return true;
 		}
 #endif
 		static string Priority(string str, char[] op)
