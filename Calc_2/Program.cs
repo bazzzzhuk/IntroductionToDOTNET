@@ -16,6 +16,7 @@ namespace Calc_2
 		static int oper;
 		static char[] chars = { '-', '+', '*', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '(', ')', ',' };
 		static char[] operators = { '-', '+', '*', '/' };
+		static char[] operators_minus = { '+', '*', '/' };
 		static char[] priority = { '*', '/' };
 		static string str, str1, str2, str_in;
 		static void Main(string[] args)
@@ -35,7 +36,8 @@ namespace Calc_2
 			//Console.Write("Введите арифметическое выражение:");
 			//str = Console.ReadLine();
 			//str="12345 + (5 * 2) / 2 - (12 / 3) + 678";
-			str = "1+3*(12*5)*20/4-(((12/2+1)+(2*6))*10)+(12.3+(2/246))";
+			//str = "1+3*(12*5)* -20/4-(((12/2 + -1)+(2*6))*10)+(12.3+(2/246))";
+			str = "5 + (1 + (2 + (22 + 3)*2 + (33 + 44))/(2 + 8)*3 + 1)*2 - 2";
 			str=Correct_expression(str);
 			Console.BackgroundColor = ConsoleColor.DarkYellow;
 			Console.ForegroundColor = ConsoleColor.Black;
@@ -55,18 +57,21 @@ namespace Calc_2
 				if (!chars.Contains(str[i])) return Print_cerr("недопустимый символ", i);
 				if (operators.Contains(str[str.Length - 1])) return Print_cerr("оператор в конце выражения", str.Length - 1);
 				if (operators.Contains(str[0])) return Print_cerr("оператор в начале выражения", 0);
-				if (operators.Contains(str[i]) && operators.Contains(str[i + 1])) return Print_cerr("два оператора подряд", i);
+				if (operators_minus.Contains(str[i]) && operators_minus.Contains(str[i + 1])) return Print_cerr("два оператора подряд", i);
 				if (str[i] == '(' && str[i + 1] == ')') return Print_cerr("неправильная последовательность скобок", i);
 			}
 			return true;
 		}
 		static string Correct_expression(string str)
 		{
+			//string.IndexOfAny(operators)
 			str = str.Replace(" ", string.Empty);//удаляем пробелы
 			str = str.Replace(".", ",");//меняем точки на запятый
+			str = str.Replace("+"+"-", "+~");//меняем точки на запятые
 			for (int i = 0; i < str.Length - 1; i++)//")(" меняет на ")*("
 			{
 				if (str[i] == ')' && str[i + 1] == '(') str = str.Insert(i + 1, "*");
+				//if (operators.Contains(str[i]) && Convert.ToString(str[i + 1]).Contains("-"))str = str.Replace("-", "~"); ;
 			}
 			return str;	
 		}
